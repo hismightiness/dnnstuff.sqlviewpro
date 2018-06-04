@@ -2,11 +2,11 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <div class="dnnForm dnnClear">
     <div id="editsettings" class="tabslayout">
-        <ul id="editsettings-nav" class="tabslayout">
-            <li><a href="#tab1"><span>
-                <%=Localization.GetString("TabCaption_Tab1", LocalResourceFile)%></span></a></li>
-        </ul>
         <div class="tabs-container">
+            <ul id="editsettings-nav" class="tabslayout">
+                <li><a href="#tab1"><span>
+                    <%=Localization.GetString("TabCaption_Tab1", LocalResourceFile)%></span></a></li>
+            </ul>
             <div class="tab" id="tab1">
                 <div class="dnnFormItem">
                     <dnn:Label ID="lblParameterType" runat="server" CssClass="SubHead" ControlName="ddParameterType" Suffix=":" />
@@ -29,17 +29,28 @@
             </div>
         </div>
     </div>
-        <ul class="dnnActions dnnClear">
-            <li>
-                <asp:LinkButton ID="cmdUpdate" Text="Update" resourcekey="cmdUpdate" CausesValidation="True" runat="server" CssClass="dnnPrimaryAction"  OnClick="cmdUpdate_Click"/></li>
-            <li>
-                <asp:LinkButton ID="cmdCancel" Text="Cancel" resourcekey="cmdCancel" CausesValidation="False" runat="server" CssClass="dnnSecondaryAction"  OnClick="cmdCancel_Click"/></li>
-        </ul>
+    <ul class="dnnActions dnnClear">
+        <li>
+            <asp:LinkButton ID="cmdUpdate" Text="Update" resourcekey="cmdUpdate" CausesValidation="True" runat="server" CssClass="dnnPrimaryAction"  OnClick="cmdUpdate_Click"/></li>
+        <li>
+            <asp:LinkButton ID="cmdCancel" Text="Cancel" resourcekey="cmdCancel" CausesValidation="False" runat="server" CssClass="dnnSecondaryAction"  OnClick="cmdCancel_Click"/></li>
+    </ul>
 </div>
 <script type="text/javascript">
-    var tabber1 = new Yetii({
-        id: 'editsettings',
-        persist: true
-    });
+    (function ($, Sys) {
+        function setupParamForm() {
+            var tabber1 = new Yetii({
+                id: "editsettings",
+                persist: true
+            });
+        }
+
+        $(document).ready(function () {
+            setupParamForm();
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                setupDnnSiteSettings();
+            });
+        });
+    }(jQuery, window.Sys));
 </script>
 
