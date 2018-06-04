@@ -48,7 +48,7 @@
         $(document).ready(function () {
             setupParamForm();
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                setupDnnSiteSettings();
+                setupParamForm();
             });
         });
     }(jQuery, window.Sys));
